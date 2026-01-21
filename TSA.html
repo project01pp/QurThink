@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>TSA – QurThink</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>Tebak Sambung Ayat</h1>
+
+  <p id="info"></p>
+
+  <p><b>Potongan Ayat:</b></p>
+  <p id="ayat"></p>
+
+  <p><b>Lanjutkan ayat:</b></p>
+  <input type="text" id="jawaban">
+
+  <br><br>
+  <button onclick="cekJawaban()">Cek Jawaban</button>
+
+  <p id="feedback"></p>
+
+  <div id="murajaah">
+    <p><b>Murajaah Ayat Lengkap:</b></p>
+    <p id="ayatLengkap"></p>
+    <button onclick="lanjut()">Lanjut TSA</button>
+  </div>
+
+  <script src="data/juz1.js"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>
