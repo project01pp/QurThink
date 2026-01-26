@@ -34,8 +34,16 @@ function normalize(teks) {
 function cekJawaban() {
   const input = document.getElementById("jawaban").value;
   const ayatSekarang = dataAktif[index];
-  const ayatBerikutnya = JUZ1.find(
+
+  // ambil 2–3 ayat setelahnya
+  const ayat1 = JUZ1.find(
     a => a.surat === ayatSekarang.surat && a.ayat === ayatSekarang.ayat + 1
+  );
+  const ayat2 = JUZ1.find(
+    a => a.surat === ayatSekarang.surat && a.ayat === ayatSekarang.ayat + 2
+  );
+  const ayat3 = JUZ1.find(
+    a => a.surat === ayatSekarang.surat && a.ayat === ayatSekarang.ayat + 3
   );
 
   if (!input) {
@@ -43,24 +51,29 @@ function cekJawaban() {
     return;
   }
 
-  if (normalize(input) === normalize(ayatBerikutnya.teks)) {
+  // gabung jawaban
+  let jawabanBenar = "";
+  if (ayat1) jawabanBenar += ayat1.teks + " ";
+  if (ayat2) jawabanBenar += ayat2.teks + " ";
+  if (ayat3) jawabanBenar += ayat3.teks;
+
+  if (normalize(input) === normalize(jawabanBenar)) {
     salah = 0;
     index++;
 
     if (index < dataAktif.length) {
       tampilkanSoal();
     } else {
-      document.getElementById("feedback").innerText =
-        "🎉 TSA selesai";
+      document.getElementById("feedback").innerText = "🎉 TSA selesai";
     }
+
   } else {
     salah++;
-    document.getElementById("feedback").innerText =
-      `❌ Salah (${salah}/3)`;
+    document.getElementById("feedback").innerText = `❌ Salah (${salah}/3)`;
 
     if (salah >= 3) {
       document.getElementById("ayatLengkap").innerText =
-        ayatSekarang.teks + "\n\n" + ayatBerikutnya.teks;
+        ayatSekarang.teks + "\n\n" + jawabanBenar;
     }
   }
 }
