@@ -1,85 +1,45 @@
-const params = new URLSearchParams(window.location.search);
-const jumlahSoal = parseInt(params.get("jumlah"));
-const target = params.get("target");
-
-let dataAktif = [];
-let index = 0;
+let indexSoal = 0;
 let salah = 0;
 
-if (target === "half") {
-  dataAktif = JUZ1.slice(0, Math.floor(JUZ1.length / 2));
-} else {
-  dataAktif = [...JUZ1];
-}
-
-dataAktif = dataAktif
-  .sort(() => Math.random() - 0.5)
-  .slice(0, jumlahSoal);
-
-tampilkanSoal();
-
-function tampilkanSoal() {
-  document.getElementById("ayat").innerText = dataAktif[index].teks;
-  document.getElementById("jawaban").value = "";
-  document.getElementById("feedback").innerText = "";
-}
-
-function normalize(teks) {
-  return teks
-    .replace(/[ًٌٍَُِّْ]/g, "")
-    .replace(/\s+/g, "")
-    .trim();
-}
+document.getElementById("ayat").innerText =
+  soalTSA[indexSoal].potongan;
 
 function cekJawaban() {
-  const input = document.getElementById("jawaban").value;
-  const ayatSekarang = dataAktif[index];
+  const input = document.getElementById("jawaban").value.trim();
+  const jawabanBenar = soalTSA[indexSoal].lanjutan.join(" ");
 
-  // ambil 2–3 ayat setelahnya
-  const ayat1 = JUZ1.find(
-    a => a.surat === ayatSekarang.surat && a.ayat === ayatSekarang.ayat + 1
-  );
-  const ayat2 = JUZ1.find(
-    a => a.surat === ayatSekarang.surat && a.ayat === ayatSekarang.ayat + 2
-  );
-  const ayat3 = JUZ1.find(
-    a => a.surat === ayatSekarang.surat && a.ayat === ayatSekarang.ayat + 3
-  );
-
-  if (!input) {
-    alert("Jawaban belum diisi");
-    return;
-  }
-
-  // gabung jawaban
-  let jawabanBenar = "";
-  if (ayat1) jawabanBenar += ayat1.teks + " ";
-  if (ayat2) jawabanBenar += ayat2.teks + " ";
-  if (ayat3) jawabanBenar += ayat3.teks;
-
-  if (normalize(input) === normalize(jawabanBenar)) {
-    salah = 0;
-    index++;
-
-    if (index < dataAktif.length) {
-      tampilkanSoal();
-    } else {
-      document.getElementById("feedback").innerText = "🎉 TSA selesai";
-    }
-
+  if (input === jawabanBenar) {
+    document.getElementById("feedback").innerText = "✅ Jawaban benar";
+    document.getElementById("murajaah").style.display = "none";
   } else {
     salah++;
-    document.getElementById("feedback").innerText = `❌ Salah (${salah}/3)`;
+    document.getElementById("feedback").innerText =
+      "❌ Salah (" + salah + "x)";
 
     if (salah >= 3) {
-      document.getElementById("ayatLengkap").innerText =
-        ayatSekarang.teks + "\n\n" + jawabanBenar;
+      tampilkanMurajaah();
     }
   }
+}
+
+function tampilkanMurajaah() {
+  document.getElementById("murajaah").style.display = "block";
+  document.getElementById("ayatLengkap").innerText =
+    soalTSA[indexSoal].lengkap;
 }
 
 function lanjut() {
+  indexSoal++;
   salah = 0;
-  index++;
-  tampilkanSoal();
+
+  if (indexSoal < soalTSA.length) {
+    document.getElementById("ayat").innerText =
+      soalTSA[indexSoal].potongan;
+    document.getElementById("jawaban").value = "";
+    document.getElementById("feedback").innerText = "";
+    document.getElementById("murajaah").style.display = "none";
+  } else {
+    alert("TSA selesai 🎉");
+    window.location.href = "index.html";
+  }
 }
