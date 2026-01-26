@@ -1,1 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Pengaturan TSA</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+  <h2>Pengaturan TSA</h2>
+
+  <label>Pilih Juz:</label><br>
+  <select id="pilihJuz">
+    <option value="juz1">Juz 1</option>
+  </select>
+
+  <br><br>
+
+  <label>Jumlah Soal:</label><br>
+  <select id="jumlahSoal">
+    <option value="3">3</option>
+    <option value="5">5</option>
+    <option value="7">7</option>
+  </select>
+
+  <br><br>
+
+  <label>Target Hafalan:</label><br>
+  <select id="target">
+    <option value="half">Setengah Juz</option>
+  </select>
+
+  <br><br>
+
+  <button onclick="mulaiTSA()">Mulai</button>
+
+  <script>
+    function mulaiTSA() {
+      const juz = document.getElementById("pilihJuz").value;
+      const jumlah = document.getElementById("jumlahSoal").value;
+      const target = document.getElementById("target").value;
+
+      window.location.href =
+        `tsa.html?juz=${juz}&jumlah=${jumlah}&target=${target}`;
+    }
+  </script>
+
+</body>
+</html>
