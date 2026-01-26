@@ -8,45 +8,17 @@
 <body>
 
   <h1>QurThink</h1>
+  <p>Latihan Tebak Sambung Ayat Al-Qur’an</p>
 
-  <h2>Pengaturan TSA</h2>
-
-  <label>Pilih Juz:</label><br>
-  <select id="pilihJuz">
-    <option value="juz1">Juz 1</option>
-  </select>
+  <button onclick="window.location.href='setting.html'">
+    Mulai TSA
+  </button>
 
   <br><br>
 
-  <label>Jumlah Soal:</label><br>
-  <select id="jumlahSoal">
-    <option value="3">3</option>
-    <option value="5">5</option>
-    <option value="7">7</option>
-    <option value="10">10</option>
-  </select>
-
-  <br><br>
-
-  <label>Target Hafalan:</label><br>
-  <select id="target">
-    <option value="half">Setengah Juz</option>
-    <option value="full">1 Juz</option>
-  </select>
-
-  <br><br>
-  <button onclick="mulai()">Mulai TSA</button>
-
-  <script>
-    function mulai() {
-      const juz = document.getElementById("pilihJuz").value;
-      const jumlah = document.getElementById("jumlahSoal").value;
-      const target = document.getElementById("target").value;
-      // halaman TSA
-      const url = `tsa.html?juz=${juz}&jumlah=${jumlah}&target=${target}`;
-      window.location.href = url;
-    }
-  </script>
+  <button onclick="window.location.href='quran.html'">
+    Baca Al-Qur’an
+  </button>
 
 </body>
 </html>
