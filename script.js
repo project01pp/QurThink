@@ -1,45 +1,35 @@
-let indexSoal = 0;
-let salah = 0;
+const ayat = document.getElementById("ayat");
+const feedback = document.getElementById("feedback");
+const jawabanInput = document.getElementById("jawaban");
+const murajaah = document.getElementById("murajaah");
+const ayatLengkap = document.getElementById("ayatLengkap");
 
-document.getElementById("ayat").innerText =
-  soalTSA[indexSoal].potongan;
+let index = 0;
+
+// TAMPILKAN POTONGAN AYAT
+ayat.innerText = soalTSA[index].potongan;
 
 function cekJawaban() {
-  const input = document.getElementById("jawaban").value.trim();
-  const jawabanBenar = soalTSA[indexSoal].lanjutan.join(" ");
+  const jawabanUser = jawabanInput.value.trim();
 
-  if (input === jawabanBenar) {
-    document.getElementById("feedback").innerText = "✅ Jawaban benar";
-    document.getElementById("murajaah").style.display = "none";
+  if (jawabanUser === soalTSA[index].jawaban) {
+    feedback.innerText = "Jawaban benar!";
+    ayatLengkap.innerText = soalTSA[index].lengkap;
+    murajaah.style.display = "block";
   } else {
-    salah++;
-    document.getElementById("feedback").innerText =
-      "❌ Salah (" + salah + "x)";
-
-    if (salah >= 3) {
-      tampilkanMurajaah();
-    }
+    feedback.innerText = "❌ Jawaban salah, coba lagi.";
   }
 }
 
-function tampilkanMurajaah() {
-  document.getElementById("murajaah").style.display = "block";
-  document.getElementById("ayatLengkap").innerText =
-    soalTSA[indexSoal].lengkap;
-}
-
 function lanjut() {
-  indexSoal++;
-  salah = 0;
+  index++;
+  murajaah.style.display = "none";
+  jawabanInput.value = "";
+  feedback.innerText = "";
 
-  if (indexSoal < soalTSA.length) {
-    document.getElementById("ayat").innerText =
-      soalTSA[indexSoal].potongan;
-    document.getElementById("jawaban").value = "";
-    document.getElementById("feedback").innerText = "";
-    document.getElementById("murajaah").style.display = "none";
+  if (index < soalTSA.length) {
+    ayat.innerText = soalTSA[index].potongan;
   } else {
-    alert("TSA selesai 🎉");
-    window.location.href = "index.html";
+    ayat.innerText = "TSA selesai!";
   }
 }
