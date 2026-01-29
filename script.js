@@ -7,14 +7,14 @@ const ayatLengkap = document.getElementById("ayatLengkap");
 let index = 0;
 
 // TAMPILKAN POTONGAN AYAT
-ayat.innerText = soalTSA[index].potongan;
+ayat.innerText = soaltsa[index].potongan;
 
 function cekJawaban() {
   const jawabanUser = jawabanInput.value.trim();
 
-  if (jawabanUser === soalTSA[index].jawaban) {
+  if (jawabanUser === soaltsa[index].jawaban) {
     feedback.innerText = "Jawaban benar!";
-    ayatLengkap.innerText = soalTSA[index].lengkap;
+    ayatLengkap.innerText = soaltsa[index].lengkap;
     murajaah.style.display = "block";
   } else {
     feedback.innerText = "❌ Jawaban salah, coba lagi.";
@@ -27,8 +27,8 @@ function lanjut() {
   jawabanInput.value = "";
   feedback.innerText = "";
 
-  if (index < soalTSA.length) {
-    ayat.innerText = soalTSA[index].potongan;
+  if (index < soaltsa.length) {
+    ayat.innerText = soaltsa[index].potongan;
   } else {
     ayat.innerText = "TSA selesai!";
   }
